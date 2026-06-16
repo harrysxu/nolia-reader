@@ -1,9 +1,6 @@
 # Nolia Reader
 
-## Languages
-
-- [English](README.md)
-- [简体中文](README.zh-CN.md)
+[English](README.md) | [简体中文](README.zh-CN.md)
 
 Nolia Reader is a local-first browser extension for reading, converting, and exporting Markdown webpages. It renders raw Markdown pages, local Markdown files, hosted repository documents, and Mermaid snippets without sending document content to a remote service.
 
