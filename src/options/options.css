@@ -1,0 +1,157 @@
+body {
+  margin: 0;
+  background: #f7f8fa;
+  color: #1f2328;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.options-shell {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 820px);
+  min-height: 100vh;
+}
+
+aside {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 24px 18px;
+  border-right: 1px solid #d8dee4;
+  background: #fff;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.brand span {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #0969da;
+  color: #fff;
+  font-weight: 700;
+}
+
+aside a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #656d76;
+  text-decoration: none;
+}
+
+aside a:hover {
+  background: #f6f8fa;
+  color: #0969da;
+}
+
+.options-content {
+  padding: 32px;
+  max-width: 900px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.settings-section {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #d8dee4;
+}
+
+.settings-section h2 {
+  margin-bottom: 14px;
+}
+
+.domain-row,
+.domain-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+  padding: 8px 0;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+  padding: 8px 0;
+}
+
+select,
+input[type="text"],
+.domain-add input {
+  min-width: 220px;
+  padding: 7px 9px;
+  border: 1px solid #d8dee4;
+  border-radius: 6px;
+  background: #fff;
+}
+
+button {
+  border: 1px solid #d8dee4;
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button.danger {
+  border-color: #cf222e;
+  color: #cf222e;
+}
+
+.domain-list h3 {
+  margin: 12px 0 4px;
+  color: #656d76;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.domain-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 760px) {
+  .options-shell {
+    display: block;
+  }
+  aside {
+    position: static;
+    height: auto;
+  }
+  .options-content {
+    padding: 28px 26px;
+  }
+  .setting-row-select {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .setting-row-toggle {
+    align-items: center;
+    flex-direction: row;
+  }
+  .domain-row,
+  .domain-add {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  select,
+  input[type="text"],
+  .domain-add input {
+    min-width: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,598 @@
+:root {
+  color-scheme: light dark;
+}
+
+body:has(#nolia-reader-root) {
+  margin: 0 !important;
+  background: #f7f8fa;
+}
+
+body:has(#nolia-inline-reader-root) {
+  margin: 0 !important;
+}
+
+html.nolia-reader-fullscreen,
+body.nolia-reader-fullscreen {
+  display: block !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  transform: none !important;
+}
+
+.nolia-reader-inline-page,
+body.nolia-reader-inline-page {
+  display: block !important;
+  position: static !important;
+  width: auto !important;
+  min-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  transform: none !important;
+}
+
+.nolia-reader {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #1f2328;
+  --muted: #656d76;
+  --border: #d8dee4;
+  --accent: #0969da;
+  --success: #1a7f37;
+  --warning: #9a6700;
+  --danger: #cf222e;
+  --code-bg: #f6f8fa;
+  --code-text: #24292f;
+  --code-keyword: #cf222e;
+  --code-entity: #8250df;
+  --code-constant: #0550ae;
+  --code-string: #0a3069;
+  --code-variable: #953800;
+  --code-comment: #6e7781;
+  --code-tag: #116329;
+  --code-list: #3b2300;
+  --code-addition-text: #116329;
+  --code-addition-bg: #dafbe1;
+  --code-deletion-text: #82071e;
+  --code-deletion-bg: #ffebe9;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.nolia-inline-reader {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #1f2328;
+  --muted: #656d76;
+  --border: #d8dee4;
+  --accent: #0969da;
+  --success: #1a7f37;
+  --warning: #9a6700;
+  --danger: #cf222e;
+  --code-bg: #f6f8fa;
+  --code-text: #24292f;
+  --code-keyword: #cf222e;
+  --code-entity: #8250df;
+  --code-constant: #0550ae;
+  --code-string: #0a3069;
+  --code-variable: #953800;
+  --code-comment: #6e7781;
+  --code-tag: #116329;
+  --code-list: #3b2300;
+  --code-addition-text: #116329;
+  --code-addition-bg: #dafbe1;
+  --code-deletion-text: #82071e;
+  --code-deletion-bg: #ffebe9;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body.nolia-reader-inline-page {
+  background: #f7f8fa !important;
+}
+
+body.nolia-reader-inline-page .nolia-inline-reader {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+body.nolia-reader-inline-page .nolia-inline-toolbar {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+body.nolia-reader-inline-page .nolia-inline-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+body.nolia-reader-inline-page .nolia-inline-content .markdown-body {
+  min-width: 0;
+}
+
+.nolia-mermaid-render {
+  margin: 16px 0;
+  color: var(--text);
+}
+
+.nolia-mermaid-render .mermaid-block {
+  background: var(--surface);
+}
+
+.nolia-reader.theme-dark,
+.nolia-inline-reader.theme-dark,
+:root[data-nolia-theme="dark"] .nolia-reader.theme-system,
+:root[data-nolia-theme="dark"] .nolia-inline-reader.theme-system {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --border: #30363d;
+  --accent: #58a6ff;
+  --success: #3fb950;
+  --warning: #d29922;
+  --danger: #f85149;
+  --code-bg: #111820;
+  --code-text: #d6deeb;
+  --code-keyword: #ff7b72;
+  --code-entity: #d2a8ff;
+  --code-constant: #79c0ff;
+  --code-string: #a5d6ff;
+  --code-variable: #ffa657;
+  --code-comment: #8b949e;
+  --code-tag: #7ee787;
+  --code-list: #f2cc60;
+  --code-addition-text: #aff5b4;
+  --code-addition-bg: #033a16;
+  --code-deletion-text: #ffdcd7;
+  --code-deletion-bg: #67060c;
+}
+
+.markdown-body[data-nolia-inline-host="true"],
+article.markdown-body[data-nolia-inline-host="true"] {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.reader-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 20;
+  transform-origin: left;
+}
+
+.reader-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.reader-brand {
+  min-width: 0;
+  flex: 1 1 260px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.reader-brand strong,
+.reader-brand span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.reader-brand strong {
+  font-size: 13px;
+}
+
+.reader-brand span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.segmented button,
+.icon-button,
+.reader-error button {
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.segmented button {
+  min-width: 84px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.segmented button.active {
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 6px;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.reader-layout {
+  display: flex;
+  align-items: flex-start;
+}
+
+.reader-toc {
+  position: sticky;
+  top: 49px;
+  width: 260px;
+  max-height: calc(100vh - 49px);
+  flex: 0 0 260px;
+  overflow: auto;
+  padding: 20px 16px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.reader-toc h2 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.reader-toc a {
+  display: block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.reader-toc a:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.reader-toc .depth-2 { padding-left: 18px; }
+.reader-toc .depth-3 { padding-left: 28px; }
+.reader-toc .depth-4,
+.reader-toc .depth-5,
+.reader-toc .depth-6 { padding-left: 38px; }
+
+.reader-main {
+  width: 100%;
+  min-width: 0;
+  padding: 32px;
+}
+
+.width-narrow .reader-main > * { max-width: 720px; }
+.width-medium .reader-main > * { max-width: 860px; }
+.width-wide .reader-main > * { max-width: 1040px; }
+.width-full .reader-main > * { max-width: none; }
+
+.reader-main > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.document-header {
+  margin-bottom: 24px;
+}
+
+.document-header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.document-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.document-meta-item {
+  max-width: min(100%, 520px);
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 70%, var(--bg));
+  color: var(--muted);
+  line-height: 1.35;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.document-meta-item svg {
+  flex: 0 0 auto;
+}
+
+.document-source-link {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.document-source-link:hover {
+  text-decoration: underline;
+}
+
+.reader-state,
+.reader-error,
+.frontmatter-panel,
+.source-view {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.reader-state {
+  padding: 18px;
+  color: var(--muted);
+}
+
+.reader-error {
+  padding: 18px;
+  border-color: var(--danger);
+}
+
+.reader-error button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--danger);
+  color: #fff;
+}
+
+.nolia-inline-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.nolia-inline-brand {
+  min-width: 0;
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nolia-inline-brand strong,
+.nolia-inline-brand span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nolia-inline-brand strong {
+  font-size: 13px;
+}
+
+.nolia-inline-brand span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.nolia-inline-content .markdown-body {
+  width: 100%;
+}
+
+.nolia-inline-toast {
+  position: sticky;
+  top: 56px;
+  width: max-content;
+  margin-left: auto;
+}
+
+.reader-toast {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  z-index: 30;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--surface);
+  font-size: 13px;
+}
+
+.frontmatter-panel {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+}
+
+.frontmatter-panel summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.source-view {
+  overflow: auto;
+}
+
+.source-meta {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.source-view pre {
+  margin: 0;
+  padding: 18px;
+  white-space: pre;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.export-buffer {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
+
+@media (max-width: 900px) {
+  .reader-toolbar {
+    height: auto;
+    min-height: 48px;
+    flex-wrap: wrap;
+    padding: 8px;
+  }
+  .reader-brand {
+    flex-basis: 100%;
+  }
+  .reader-toc {
+    position: fixed;
+    top: 49px;
+    left: 0;
+    bottom: 0;
+    z-index: 12;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 20%);
+  }
+  .reader-main {
+    padding: 20px 16px;
+  }
+  .toolbar-actions {
+    flex-wrap: wrap;
+  }
+  .nolia-inline-toolbar {
+    flex-wrap: wrap;
+  }
+  .nolia-inline-brand {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .reader-toolbar {
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .segmented {
+    order: 2;
+  }
+  .toolbar-actions {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .nolia-inline-segmented {
+    order: 2;
+  }
+  .nolia-inline-actions {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .document-header h1 {
+    font-size: 26px;
+  }
+}
+
+@media print {
+  .reader-toolbar,
+  .reader-toc,
+  .reader-toast,
+  .frontmatter-panel summary,
+  .icon-button,
+  .code-copy-button {
+    display: none !important;
+  }
+  .reader-layout,
+  .reader-main {
+    display: block;
+    padding: 0;
+  }
+  .nolia-reader {
+    background: #fff;
+    color: #111;
+  }
+}

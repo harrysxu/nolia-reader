@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Nolia Reader icon">
+  <defs>
+    <linearGradient id="bg" x1="14" x2="114" y1="12" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563eb"/>
+      <stop offset="0.58" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <path d="M34 30h41.5L94 48.5V98H34V30Z" fill="#f8fafc"/>
+  <path d="M75 31v18h18" fill="#dbeafe"/>
+  <path d="M47 58h34M47 71h34M47 84h22" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
+  <path d="M34 30h41.5L94 48.5V98H34V30Z" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+</svg>
