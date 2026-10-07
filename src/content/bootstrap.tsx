@@ -12,6 +12,7 @@ import { getSettings, saveSettings } from "../shared/settingsStore";
 import type { ExtensionSettings } from "../shared/settings";
 import type { ContentScriptMessage } from "../shared/messages";
 import { getHostname } from "../shared/url";
+import { copyText } from "../reader/clipboard";
 import "highlight.js/styles/github.css";
 import "../styles/reader.css";
 import "../styles/markdown.css";
@@ -82,7 +83,7 @@ async function handleRuntimeMessage(message: unknown): Promise<unknown> {
   }
   if (message?.type === "content:copyMarkdown") {
     const source = currentDocument?.markdown ?? (await resolveMarkdownSource(true))?.markdown ?? "";
-    await navigator.clipboard.writeText(source);
+    await copyText(source, document);
     return { ok: true };
   }
   if (message?.type === "content:downloadMarkdown") {

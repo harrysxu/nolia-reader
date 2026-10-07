@@ -1,4 +1,5 @@
 import type { ExtensionSettings } from "../shared/settings";
+import { createTranslator } from "../shared/i18n";
 
 const ENHANCED_ATTR = "data-nolia-mermaid-enhanced";
 const MERMAID_CANDIDATE_SELECTOR = [
@@ -24,6 +25,7 @@ export async function enhanceMermaidSnippets(documentRef: Document = document, s
   }
 
   const { renderMermaidBlocks } = await import("../reader/mermaidRuntime");
+  const tr = settings ? createTranslator(settings) : undefined;
 
   applyTheme(documentRef, settings);
   let count = 0;
@@ -43,7 +45,9 @@ export async function enhanceMermaidSnippets(documentRef: Document = document, s
     diagram.textContent = source;
     host.append(diagram);
     candidate.element.replaceWith(host);
-    await renderMermaidBlocks(host);
+    await renderMermaidBlocks(host, tr ? {
+      labels: { copy: tr("copySvg"), copied: tr("copied"), failed: tr("failed") }
+    } : undefined);
     count += 1;
   }
   return count;

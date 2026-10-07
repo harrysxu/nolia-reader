@@ -9,6 +9,7 @@ import { sendMessage, browserApi } from "../shared/browser";
 import { filenameFromDocument } from "../shared/filename";
 import { attachCodeCopyButtons } from "./codeCopy";
 import { renderMermaidBlocks } from "./mermaidRuntime";
+import { copyText } from "./clipboard";
 import { DocumentHeader } from "./DocumentHeader";
 
 interface InlineMarkdownAppProps {
@@ -41,10 +42,13 @@ export function InlineMarkdownApp({ documentModel, settings, onOpenReader, onClo
       return;
     }
     if (readerSettings.enableMermaid) {
-      void renderMermaidBlocks(rootRef.current);
+      void renderMermaidBlocks(rootRef.current, {
+        onCopyStatus: showToast,
+        labels: { copy: tr("copySvg"), copied: tr("copied"), failed: tr("failed") }
+      });
     }
     if (readerSettings.showCodeCopy) {
-      attachCodeCopyButtons(rootRef.current, showToast, { copy: "Copy", copied: tr("copied") });
+      attachCodeCopyButtons(rootRef.current, showToast, { copy: "Copy", copied: tr("copied"), failed: tr("failed") });
     }
   });
 
@@ -67,8 +71,12 @@ export function InlineMarkdownApp({ documentModel, settings, onOpenReader, onClo
   };
 
   const copyMarkdown = async () => {
-    await navigator.clipboard.writeText(documentModel.markdown);
-    showToast(tr("copied"));
+    try {
+      await copyText(documentModel.markdown, rootRef.current?.ownerDocument ?? document);
+      showToast(tr("copied"));
+    } catch {
+      showToast(tr("failed"));
+    }
   };
 
   const downloadMarkdown = async () => {

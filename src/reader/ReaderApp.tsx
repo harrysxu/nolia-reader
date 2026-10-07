@@ -11,6 +11,7 @@ import { filenameFromDocument } from "../shared/filename";
 import { renderMermaidBlocks } from "./mermaidRuntime";
 import { attachCodeCopyButtons } from "./codeCopy";
 import { DocumentHeader } from "./DocumentHeader";
+import { copyText } from "./clipboard";
 
 interface ReaderAppProps {
   documentModel: MarkdownPageDocument;
@@ -45,10 +46,13 @@ export function ReaderApp({ documentModel, settings, onSettingsChange, onClose }
       return;
     }
     if (rendered && readerSettings.enableMermaid) {
-      void renderMermaidBlocks(rootRef.current ?? document);
+      void renderMermaidBlocks(rootRef.current ?? document, {
+        onCopyStatus: showToast,
+        labels: { copy: tr("copySvg"), copied: tr("copied"), failed: tr("failed") }
+      });
     }
     if (rendered && readerSettings.showCodeCopy) {
-      attachCodeCopyButtons(rootRef.current ?? document, showToast);
+      attachCodeCopyButtons(rootRef.current ?? document, showToast, { copy: "Copy", copied: tr("copied"), failed: tr("failed") });
     }
   });
 
@@ -107,14 +111,22 @@ export function ReaderApp({ documentModel, settings, onSettingsChange, onClose }
   };
 
   const copyMarkdown = async () => {
-    await navigator.clipboard.writeText(documentModel.markdown);
-    showToast(tr("copied"));
+    try {
+      await copyText(documentModel.markdown, rootRef.current?.ownerDocument ?? document);
+      showToast(tr("copied"));
+    } catch {
+      showToast(tr("failed"));
+    }
   };
 
   const copyHtml = async () => {
     if (!rendered) return;
-    await navigator.clipboard.writeText(rendered.html);
-    showToast(tr("copied"));
+    try {
+      await copyText(rendered.html, rootRef.current?.ownerDocument ?? document);
+      showToast(tr("copied"));
+    } catch {
+      showToast(tr("failed"));
+    }
   };
 
   const downloadMarkdown = async () => {
